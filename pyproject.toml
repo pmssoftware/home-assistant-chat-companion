@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "home-assistant-chat-companion"
+version = "0.3.0.dev0"
+description = "Experimental federation and native-client backend for Home Assistant Chat"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "Home Assistant Chat contributors" }]
+dependencies = []
+
+[project.scripts]
+hachat-companion = "hachat_companion.cli:main"
+hachat-prototype-client = "hachat_companion.client:main"
+hachat-federation-selftest = "hachat_companion.selftest:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"

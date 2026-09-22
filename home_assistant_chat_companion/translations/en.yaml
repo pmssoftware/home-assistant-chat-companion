@@ -1,0 +1,47 @@
+configuration:
+  bootstrap_admin_name:
+    name: Initial administrator name
+    description: Used only when the persistent database contains no accounts.
+  bootstrap_admin_password:
+    name: Initial administrator password
+    description: Minimum 12 characters. Protect App configuration and backups.
+  ssl:
+    name: Enable TLS
+    description: Serve both client and federation APIs over TLS.
+  allow_insecure_test_http:
+    name: Allow insecure test HTTP
+    description: Explicitly allow plaintext listeners on an isolated test network.
+  certfile:
+    name: Certificate file
+    description: Certificate filename in Home Assistant's SSL directory.
+  keyfile:
+    name: Private key file
+    description: Private-key filename in Home Assistant's SSL directory.
+  log_level:
+    name: Log level
+    description: Controls companion-server log verbosity.
+  federation_peers:
+    name: Federation peers
+    description: Explicit remote server IDs, pinned IPv4 endpoints, and shared secrets.
+    fields:
+      peer_id:
+        name: Remote server ID
+        description: Exact srv_ identifier shown in the remote App log.
+      address:
+        name: Pinned IPv4 address
+        description: Literal IPv4 address of the remote federation listener.
+      port:
+        name: Federation port
+        description: Remote federation listener port, normally 8211.
+      shared_secret:
+        name: Shared secret
+        description: Same 256-bit base64url secret on both servers.
+      insecure_http:
+        name: Use insecure HTTP
+        description: Enable only for an isolated test network.
+      tls_server_name:
+        name: TLS certificate name
+        description: Optional DNS name in the remote certificate.
+network:
+  8210/tcp: Native/local client API
+  8211/tcp: Server-to-server federation API

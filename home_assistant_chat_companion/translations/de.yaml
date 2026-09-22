@@ -1,0 +1,47 @@
+configuration:
+  bootstrap_admin_name:
+    name: Name des ersten Administrators
+    description: Wird nur verwendet, wenn die persistente Datenbank keine Konten enthält.
+  bootstrap_admin_password:
+    name: Passwort des ersten Administrators
+    description: Mindestens 12 Zeichen. App-Konfiguration und Backups schützen.
+  ssl:
+    name: TLS aktivieren
+    description: Client- und Föderations-API mit TLS bereitstellen.
+  allow_insecure_test_http:
+    name: Unsicheres Test-HTTP erlauben
+    description: Unverschlüsselte Listener ausdrücklich nur im isolierten Testnetz erlauben.
+  certfile:
+    name: Zertifikatsdatei
+    description: Dateiname des Zertifikats im SSL-Verzeichnis von Home Assistant.
+  keyfile:
+    name: Datei mit privatem Schlüssel
+    description: Dateiname des privaten Schlüssels im SSL-Verzeichnis von Home Assistant.
+  log_level:
+    name: Protokollierungsstufe
+    description: Steuert die Ausführlichkeit der Serverprotokolle.
+  federation_peers:
+    name: Föderationspartner
+    description: Explizite Server-IDs, feste IPv4-Endpunkte und gemeinsame Geheimnisse.
+    fields:
+      peer_id:
+        name: Entfernte Server-ID
+        description: Exakte srv_-Kennung aus dem Protokoll der entfernten App.
+      address:
+        name: Feste IPv4-Adresse
+        description: IPv4-Adresse des entfernten Föderations-Listeners.
+      port:
+        name: Föderationsport
+        description: Port des entfernten Föderations-Listeners, normalerweise 8211.
+      shared_secret:
+        name: Gemeinsames Geheimnis
+        description: Dasselbe 256-Bit-Base64url-Geheimnis auf beiden Servern.
+      insecure_http:
+        name: Unsicheres HTTP verwenden
+        description: Nur in einem isolierten Testnetz aktivieren.
+      tls_server_name:
+        name: TLS-Zertifikatsname
+        description: Optionaler DNS-Name im entfernten Zertifikat.
+network:
+  8210/tcp: API für lokale und eigenständige Clients
+  8211/tcp: API für Server-zu-Server-Föderation

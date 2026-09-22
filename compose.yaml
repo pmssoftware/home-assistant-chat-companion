@@ -1,0 +1,36 @@
+services:
+  companion:
+    build:
+      context: .
+    image: home-assistant-chat-companion:dev
+    restart: unless-stopped
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    volumes:
+      - companion-data:/data
+    ports:
+      - "127.0.0.1:8210:8210"
+      - "127.0.0.1:8211:8211"
+    healthcheck:
+      test:
+        - CMD
+        - python3
+        - -c
+        - >-
+          import json,urllib.request;
+          data=json.load(urllib.request.urlopen('http://127.0.0.1:8210/healthz',timeout=3));
+          assert data.get('status')=='ok' and data.get('service')=='client'
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    stop_grace_period: 10s
+
+volumes:
+  companion-data:
+
