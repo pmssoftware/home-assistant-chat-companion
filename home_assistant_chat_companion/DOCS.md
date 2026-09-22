@@ -15,9 +15,12 @@ The bootstrap password remains in the App configuration so the same configuratio
 restart cleanly; it is ignored after the first account exists. Treat App configuration
 and backups as sensitive.
 
-TLS is enabled by default. Select a certificate and key from `/ssl`. For an isolated
-LAN-only test without TLS, disable `ssl` and explicitly enable
-`allow_insecure_test_http`; clients must opt in to plaintext HTTP as well.
+TLS is enabled by default. If the selected certificate and key do not exist in `/ssl`,
+the App automatically creates a persistent self-signed certificate in `/data`; no
+manual file copying is required. Clients must explicitly trust that certificate. When
+the configured `/ssl` files become available, the App automatically uses them after a
+restart. For an isolated LAN-only test without TLS, disable `ssl` and explicitly
+enable `allow_insecure_test_http`; clients must opt in to plaintext HTTP as well.
 
 ## Network
 

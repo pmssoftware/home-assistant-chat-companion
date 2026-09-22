@@ -10,7 +10,7 @@ LABEL \
     io.hass.type="app" \
     io.hass.arch="${BUILD_ARCH}"
 
-RUN apk add --no-cache python3
+RUN apk add --no-cache openssl python3
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
@@ -22,4 +22,3 @@ COPY run.sh /run.sh
 RUN chmod 0755 /run.sh
 
 CMD ["/run.sh"]
-

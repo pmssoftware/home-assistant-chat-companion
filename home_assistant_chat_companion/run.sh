@@ -58,8 +58,21 @@ if bashio::config.true 'ssl'; then
     certfile="/ssl/$(bashio::config 'certfile')"
     keyfile="/ssl/$(bashio::config 'keyfile')"
     if ! bashio::fs.file_exists "${certfile}" || ! bashio::fs.file_exists "${keyfile}"; then
-        bashio::log.fatal "SSL is enabled but the configured certificate or key is missing"
-        exit 1
+        certfile="/data/self-signed-fullchain.pem"
+        keyfile="/data/self-signed-privkey.pem"
+        if ! bashio::fs.file_exists "${certfile}" || ! bashio::fs.file_exists "${keyfile}"; then
+            bashio::log.warning "Configured /ssl certificate is unavailable; generating a persistent self-signed certificate"
+            rm -f "${certfile}" "${keyfile}"
+            openssl req -x509 -newkey rsa:3072 -sha256 -nodes -days 3650 \
+                -keyout "${keyfile}" \
+                -out "${certfile}" \
+                -subj "/CN=home-assistant-chat-companion.local" \
+                -addext "subjectAltName=DNS:home-assistant-chat-companion.local,DNS:home-assistant-chat-companion,DNS:localhost,IP:127.0.0.1"
+            chmod 0600 "${keyfile}"
+            chmod 0644 "${certfile}"
+        else
+            bashio::log.warning "Configured /ssl certificate is unavailable; reusing the persistent self-signed certificate"
+        fi
     fi
     args+=(
         --client-tls-cert "${certfile}"

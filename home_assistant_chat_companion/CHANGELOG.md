@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.1
+
+- Automatically generate and persist a self-signed TLS certificate when the configured
+  Home Assistant `/ssl` files are unavailable.
+- Automatically prefer configured Supervisor-managed certificates when they appear.
+
 ## 0.3.0
 
 - Add idempotent Home Assistant App configuration for federation peers.

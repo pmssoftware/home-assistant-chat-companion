@@ -20,7 +20,9 @@ https://github.com/pmssoftware/home-assistant-chat-companion
 ```
 
 Before the first start, configure a bootstrap password and either select working TLS
-certificate files or explicitly enable insecure HTTP for an isolated test LAN. The
+certificate files; if they are unavailable, the App automatically generates and
+persists a self-signed certificate. Alternatively, explicitly enable insecure HTTP
+for an isolated test LAN. The
 complete peer and network setup is documented in
 [`home_assistant_chat_companion/DOCS.md`](home_assistant_chat_companion/DOCS.md).
 

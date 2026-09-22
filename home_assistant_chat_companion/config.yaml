@@ -1,5 +1,5 @@
 name: Home Assistant Chat Companion
-version: "0.3.0"
+version: "0.3.1"
 slug: home_assistant_chat_companion
 description: >-
   Experimental federation and native-client companion server for Home Assistant Chat.

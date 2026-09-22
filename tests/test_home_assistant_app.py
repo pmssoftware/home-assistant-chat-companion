@@ -32,6 +32,7 @@ class HomeAssistantAppTests(unittest.TestCase):
         self.assertFalse([item for item in required if not (APP / item).is_file()])
         dockerfile = (APP / "Dockerfile").read_text()
         self.assertIn("FROM ghcr.io/home-assistant/base:latest", dockerfile)
+        self.assertIn("openssl", dockerfile)
         self.assertNotIn("ARG BUILD_FROM", dockerfile)
         self.assertIn("COPY src ./src", dockerfile)
 
@@ -42,6 +43,8 @@ class HomeAssistantAppTests(unittest.TestCase):
         self.assertIn('--federation-listen 0.0.0.0:8211', script)
         self.assertIn('bootstrap-account', script)
         self.assertIn('configure-peer', script)
+        self.assertIn('/data/self-signed-fullchain.pem', script)
+        self.assertIn('openssl req -x509', script)
         self.assertNotIn('8123', script)
 
 
